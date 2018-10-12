@@ -56,119 +56,131 @@
 \PraesentationTitelseite % Fügt die Startseite ein
 
 \begin{frame}
-    \frametitle{Zahlenbasen}
-    \vspace{0.5cm}
+	\frametitle{Hausaufgabe 1}
+	\vspace{0.5cm}
 
-    \begin{multicols}{2}
-        \begin{enumerate}
-            \item Zweierpotenzen bis \( 2^{64} \) 
-            \item Konvertierung Dezimal \( \rightarrow \) Binär: \\
-                \( 42_{10} \) \\
-                \( 255_{10} \) \\
-                \( 4369_{10} \)
-            \item Konvertierung Binär \( \rightarrow \) Dezimal: \\
-                \( 110110_{2} \) \\
-                \( 10010110_{2} \) \\
-                \( 110011001100_{2} \) \\
-            \item Konvertierung Dezimal \( \rightarrow \) Hexadezimal: \\
-                \( 42_{10} \) \\
-                \( 255_{10} \) \\
-                \( 4269_{10} \) \\
-        \end{enumerate}
-        \vfill\columnbreak
-        \pause
-
-        \begin{enumerate}
-            \item Lösung: Tafel
-            \item Lösung: \\
-                \( = 101010_{2} \) \\
-                \( = 11111111_{2} \) \\
-                \( = 1000100010001_{2} \)
-            \item Lösung: \\
-                \( = 54_{10} \) \\
-                \( = 150_{10} \) \\
-                \( = 3276_{10} \) \\
-            \item Lösung: \\
-                \( = 2A_{16} \) \\
-                \( = FF_{16} \) \\
-                \( = 1111_{16} \) \\
-        \end{enumerate}
-    \end{multicols}
+	Erläutern Sie den Unterschied zwischen dem Relationalen Modell und dem Graphstrukturieren Modell.
+	\begin{enumerate}[(a)]
+		\item<1-> Nennen Sie ein typisches Einsatzgebiet für das jeweilige Modell.
+		\item<2->[]
+		      Relationales Modell:
+		      \begin{itemize}
+			      \item Ein CMS.
+		      \end{itemize}
+		      Graphstrukturiertes Modell:
+		      \begin{itemize}
+			      \item Datenspeicherung in der Bioinformatik/Medizin.
+			      \item Speicherung von inhärent graphstrukturierten Daten wie etwa U-Bahn Netze ;-)
+		      \end{itemize}
+	\end{enumerate}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Zahlenbasen 2}  
-    \vspace{0.5cm}
+	\frametitle{Hausaufgabe 1}
+	\vspace{0.5cm}
 
-    \begin{multicols}{2}
-        \begin{enumerate}
-            \setcounter{enumi}{4}
-            \item Konvertierung Binär \( \rightarrow \) Hexadezimal: \\
-                \( = 101010_{2} \) \\
-                \( = 11111111_{2} \) \\
-                \( = 1000100010001_{2} \)
-            \item Konvertierung Hexadezimal \( \rightarrow \) Dezimal: \\
-                \( BEEF_{16} \) \\
-                \( DEAD_{16} \) \\
-                \( FEED_{16} \) \\
-            \item Bensonderheiten der folgengen Hexwerte. Wofür kann man sie verwenden? \\
-                \( 0xFF \) \\
-                \( 0x00 \) \\
-                \( 0x55 \) \\
-                \( 0xAA \) \\
-        \end{enumerate}
-        \vfill\columnbreak
-        \pause
-
-        \begin{enumerate}
-            \setcounter{enumi}{4}
-            \item Lösung: \\
-                \( = 2A_{16} \) \\
-                \( = FF_{16} \) \\
-                \( = 1111_{16} \)
-            \item Lösung: \\
-                \( = 28879_{10} \) \\
-                \( = 57005_{10} \) \\
-                \( = 65261_{10} \) \\
-            \item Lösung: \\
-                \begin{itemize}
-                    \item Nutzung für Speichertests
-                    \item Stress von seriellen / parallelen Übertragungsystemen \( ( 0xFF_{16}, 0x00_{16} ) \)
-                    \item Test auf Übersprechen zwischen zwei Bitleitungen \( ( 0x55_{16}, 0xAA_{16} ) \)
-                \end{itemize}
-        \end{enumerate}
-    \end{multicols}
+	\begin{enumerate}[(b)]
+		% \setcounter{enumii}{2}
+		\item<1-> Im Datenbankbereich unterscheidet man zwischen Modellen,
+		      welche ein festes Schema voraussetzen und anderen,
+		      die kein Schema benötigen. Ein Schema ist hierbei eine Vorgabe,
+		      wie Daten repräsentiert werden, beispielsweise, dass jede Vorlesung genau
+		      eine eindeutige Nummer hat, einen Namen von weniger als 200 Zeichen und eine
+		      Semesterwochenstundenzahl.
+		      \begin{enumerate}[1)]
+			      \item<1-> Was ist der Vorteil/Nachteil einer solchen Vorgabe für den Anwender?
+			      \item<2->[] Schema sorgt für sauber und einheitlich abgelegte Daten
+			            und bietet Garantien über die Vollständigkeit und das Format der vorhanden Daten.
+			            Es geht Flexibilität verloren, da neue Daten, die abgelegt werden müssen,
+			            oft eine Schemaänderung notwendig machen.
+			      \item<1-> Was ist der Vorteil/Nachteil einer solchen Vorgabe für den Entwickler des
+			            Datenbanksystems?
+			      \item<2->[] Ein Schema erlaubt i.A. mehr Optimierungsmöglichkeiten da mehr Informationen
+			            und dadurch mehr “Constraints” über die Daten bekannt sind.
+			            Das Datenbanksystem kann so Anfragen schneller bearbeiten.
+		      \end{enumerate}
+	\end{enumerate}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Rechenoperationen}
-    \vspace{0.5cm}
+	\frametitle{Hausaufgabe 2}
+	\vspace{0.5cm}
 
-    \begin{multicols}{2}
-        \begin{enumerate}
-            \setcounter{enumi}{7}
-            \item Addition in Binär \& Dezimal dann Ergebnisse vergleichen \\
-                \( 011001100_2 + 010110011_2 \) \\
-                \( 0001111011_2 + 0101011001_2 \) \\
-            \item Subtraktion in Binär \& Dezimal dann Ergebnisse vergleichen \\
-                \( 011001100_2 - 010110011_2 \) \\
-                \( 0001111011_2 - 0101011001_2 \) \\
-        \end{enumerate}
-        \vfill\columnbreak
-        \pause
+	\begin{multicols}{2}
+		\begin{center}
+			\includegraphics[height=.2\paperheight]{./img1.png}
+		\end{center}
+		Angenommen, lediglich die partielle Funktion
+		\[ A \times C \rightarrow B \]
+		gilt.
+		Beschriften Sie die Abbildung mit Funktionalitätsangaben.
 
-        \begin{enumerate}
-            \setcounter{enumi}{7}
-            \item Lösung: \\
-                \( 011001100_2 + 010110011_2 = 0101111111_2 \) \\
-                \( 0001111011_2 + 0101011001_2 = 0111010100_2 \) \\
-            \item Lösung: \\
-                \( 011001100_2 - 010110011_2 = 000011001_2 \) \\
-                \( 0001111011_2 - 0101011001_2 =  (\hdots 11)1100100010_2\) \\
-        \end{enumerate}
-    \end{multicols}
+		Beantworten Sie nun die Frage, wie Funktionalitätsangaben aus partiellen
+		Funktionen und umgekehrt ermittelt werden können.
+		Merken Sie sich die Antwort für die Klausur ;-)
+
+		\pause
+		\vfill\columnbreak
+
+		Eine einfache Daumenregel ist, dass an die Entität, die auf der rechten Seite des
+		Pfeiles einer geltenden partiellen Funktion steht, eine 1 annotiert wird.
+		Es bietet sich daher an, für die sichere Bestimmung der
+		Kardinaliätsangaben grundsätzlich die möglichen partiellen Funktionen aufzustellen und
+		zu überlegen, welche Einschränkungen gewünscht sind.
+	\end{multicols}
+
 \end{frame}
 
+\begin{frame}
+	\frametitle{Gruppenaufgabe 1}
+	\vspace{0.5cm}
+
+	Sie designen eine Webanwendung zur Univerwaltung.
+	Früh entschließen Sie sich zum Einsatz eines Datenbanksystems als
+	Backend für Ihre Daten.
+	Ihr Kollege ist skeptisch und würde die Datenverwaltung lieber selbst implementieren.
+	Überzeugen Sie ihn von Ihrem Entschluss.
+	Finden Sie stichhaltige Antworten auf die folgenden von Ihrem Kollegen in den Raum
+	gestellten Äußerungen:
+	\begin{enumerate}[(a)]
+		\item Die Installation und Wartung eines Datenbanksystems ist aufwendig,
+		      die Erstellung eines eigenen Datenformats ist straight-forward und flexibler.
+		\item Mehrbenutzersynchronisation wird in diesem Fall nicht benötigt.
+		\item Es ist unsinnig, das jeder Entwickler zunächst eine eigene Anfragesprache (SQL)
+		      lernen muss, nur um Daten aus der Datenbank zu extrahieren.
+		\item Redundanz ist hilfreich, wieso sollte man auf sie verzichten?
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Gruppenaufgabe 2}
+	\vspace{0.5cm}
+
+	Finden Sie ein Beispiel für ein Problem (bzw. eine Inkonsistenz),
+	die auftreten kann, wenn unkontrolliert parallel auf Daten zugegriffen wird.
+	Ein traditionelles Beispiel hierfür ist eine gegenseitige Bank-Überweisung zwischen zwei
+	Konten A und B. Wenn A einen Betrag \( x \) zu B überweist und B einen Betrag \( x' \)
+	zu A, sollte immer gelten \( Kontostand(A) + Kontostand(B) \) ist konstant,
+	da sonst Geld verschwunden ist.
+	Konstruieren Sie einen Ablauf zweier gegenseitiger Überweisungen,
+	bei dem die Eigenschaft, dass die Kontostandssumme konstant sein soll nach dem
+	Abschluss der zwei Überweisungen verletzt ist.
+
+	\pause
+	\begin{table}[]
+		\begin{tabular}{l|l|l}
+			Schritt & A                & B                 \\ \hline
+			1       & \( read(a) \)    &                   \\
+			2       & \( a := a - x \) &                   \\
+			3       &                  & \( read(b) \)     \\
+			4       &                  & \( b := b - x' \) \\
+			5       &                  & \( read(a) \)     \\
+			6       &                  & \( a := a + x' \) \\
+			7       &                  & \( write(a) \)    \\
+			8       & \( write(a) \)   &                   \\
+		\end{tabular}
+	\end{table}
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document} % !!! NICHT ENTFERNEN !!!
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

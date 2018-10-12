@@ -1,0 +1,156 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TUM-Vorlage: Präsentation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Rechteinhaber:
+%     Technische Universität München
+%     https://www.tum.de
+% 
+% Gestaltung:
+%     ediundsepp Gestaltungsgesellschaft, München
+%     http://www.ediundsepp.de
+% 
+% Technische Umsetzung:
+%     eWorks GmbH, Frankfurt am Main
+%     http://www.eworks.de
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Zur Wahl des Seitenverhältnisses bitte einen der beiden folgenden Befehle
+% auskommentieren und den ausführen lassen:
+\input{../template/res/Praeambel16zu9.tex} % Seitenverhältnis 16:9
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../_Einstellungen.tex}                    % !!! DATEI ANPASSEN !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% \renewcommand{\PersonTitel}{Dr. rer. nat.}
+\newcommand{\Datum}{\today}
+
+\renewcommand{\PraesentationFusszeileZusatz}{| Tutorium Einführung in die Rechnerarchitektur WS 2018/2019}
+
+\title{Tutorübung 2}
+\author{\PersonVorname{} \PersonNachname}
+\institute[]{\UniversitaetName \\ \FakultaetName}
+\date[\Datum]{15. Oktober 2018}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../template/res/Anfang.tex} % !!! NICHT ENTFERNEN !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\setlength{\baselineskip}{\PraesentationAbstandAbsatz}
+\setlength{\parskip}{\baselineskip}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FOLIENSTIL: Standard
+% !!!ÄNDERUNG HIER:!!!
+\PraesentationMasterStandard
+
+\PraesentationTitelseite % Fügt die Startseite ein
+
+\begin{frame}
+	\frametitle{Hausaufgabe 1}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Angenommen,das hier modellierte Übungssystem entspricht dem Übungssystem in Grundlagen:
+		Datenbanken. Bestimmen Sie die MinMax Angaben so, dass folgende Einschränkungen
+		modelliert werden:
+		\begin{itemize}
+			\item Ein Tutor hält mindestens eine Übung.
+			\item Eine Übung wird von mindestens einem Studenten besucht.
+			\item Ein Student kann höchstens eine Übung besuchen.
+		\end{itemize}
+		Betrachten Sie nun die folgende Ausprägung, die die Beziehung modellieren soll.
+
+		Welche Beziehung besteht zwischen der MinMax Notation und einer solchen
+		Ausprägung?
+
+		\vfill\columnbreak
+
+		\begin{table}[]
+			\begin{tabular}{c|c|c}
+				Name         & GruppenNr    & MatrNr       \\ \hline
+				\( \vdots \) & \( \vdots \) & \( \vdots \) \\
+				Lang         & G12          & 23           \\
+				Passing      & G27          & 42           \\
+				Passing      & G27          & 43           \\
+				\( \vdots \) & \( \vdots \) & \( \vdots \) \\
+				Passing      & G28          & 97           \\
+				Passing      & G28          & 98           \\
+				Passing      & G28          & 99           \\
+				\( \vdots \) & \( \vdots \) & \( \vdots \) \\
+			\end{tabular}
+		\end{table}
+
+	\end{multicols}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Hausaufgabe 2}
+	\vspace{0.5cm}
+
+	\begin{enumerate}[(a)]
+		\item Erstellen Sie ein ER-Modell womit sich kausale Zusammenhänge
+		      darstellen lassen (Prinzip von Ursache und Wirkung).
+		      Nehmen Sie an, dass eine Ursache mehrere Wirkungen haben kann,
+		      und dass eine Wirkung auf maximal eine Ursache zurückzuführen ist.
+		      Geben Sie die Funktionalitäten an. Verwenden Sie die (min,max)-Notation.
+		\item Übertragen Sie das ER-Modell in ein relationales Schema.
+		\item Verfeinern Sie das relationale Schema durch Elimination von Relationen.
+		\item Formulieren Sie folgende Anfrage in relationaler Algebra jeweils für die Schemas
+		      aus den Teilaufgaben b) und c): Finden Sie alle Auswirkungen des Ereignisses mit ID=10.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Hausaufgabe 3}
+	\vspace{0.5cm}
+
+	Ignorieren Sie die Funktionalitätsangaben und beantworten Sie:
+	\begin{itemize}
+		\item Wie viele partielle Funktionen der Form \( A \times B \rightarrow \)
+		      können in einer ternären Beziehung auftreten
+		      (Ignorieren Sie beim Zählen die Reihenfolge auf der linken Seite der Beziehung).
+		\item Nennen Sie alle möglichen partiellen Beziehungen in der hier
+		      gezeigten Beziehung "nimmt teil".
+		\item Nennen Sie für jede Funktion in Prosa,
+		      welche Einschränkung diese darstellt, falls sie gilt.
+	\end{itemize}
+	Unter Berücksichtigung der Funktionalitätsangaben:
+	\begin{itemize}
+		\item Welche partiellen Funktionen gelten hier?
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hausaufgabe 4}
+	\vspace{0.5cm}
+
+	Formulieren Sie die folgenden Anfragen auf dem bekannten Universitätsschema
+	in Relationenalgebra.
+	Geben Sie die Lösungen in der Operatorbaum-Darstellung an.
+	\begin{enumerate}[(a)]
+		\item Geben Sie alle \( Vorlesungen \) an, die der Student \( Xenokrates \) gehört hat.
+		\item Geben Sie die Titel der direkten Voraussetzungen für die \( Vorlesung \) Wissenschafts-
+		      theorie an.
+		\item Geben Sie Paare von \( Studenten \)(-Namen) an, die sich aus der \( Vorlesung \) Grundzüge kennen.
+	\end{enumerate}
+
+% 	\begin{minted}{sql}
+% SELECT *
+% FROM Studenten
+% WHERE name = 'test'
+% 	\end{minted}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document} % !!! NICHT ENTFERNEN !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

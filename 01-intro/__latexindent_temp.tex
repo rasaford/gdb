@@ -1,0 +1,178 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TUM-Vorlage: Präsentation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Rechteinhaber:
+%     Technische Universität München
+%     https://www.tum.de
+% 
+% Gestaltung:
+%     ediundsepp Gestaltungsgesellschaft, München
+%     http://www.ediundsepp.de
+% 
+% Technische Umsetzung:
+%     eWorks GmbH, Frankfurt am Main
+%     http://www.eworks.de
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Zur Wahl des Seitenverhältnisses bitte einen der beiden folgenden Befehle
+% auskommentieren und den ausführen lassen:
+\input{../template/res/Praeambel16zu9.tex} % Seitenverhältnis 16:9
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../_Einstellungen.tex}                    % !!! DATEI ANPASSEN !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% \renewcommand{\PersonTitel}{Dr. rer. nat.}
+\newcommand{\Datum}{\today}
+
+\renewcommand{\PraesentationFusszeileZusatz}{| Tutorium Einführung in die Rechnerarchitektur WS 2018/2019}
+
+\title{Tutorübung 1}
+\author{\PersonVorname{} \PersonNachname}
+\institute[]{\UniversitaetName \\ \FakultaetName}
+\date[\Datum]{15. Oktober 2018}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../template/res/Anfang.tex} % !!! NICHT ENTFERNEN !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\setlength{\baselineskip}{\PraesentationAbstandAbsatz}
+\setlength{\parskip}{\baselineskip}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FOLIENSTIL: Standard
+% !!!ÄNDERUNG HIER:!!!
+\PraesentationMasterStandard
+
+\PraesentationTitelseite % Fügt die Startseite ein
+
+\begin{frame}
+    \frametitle{Hausaufgabe 1}
+    \vspace{0.5cm}
+
+    Erläutern Sie den Unterschied zwischen dem Relationalen Modell und dem Graphstrukturieren Modell.
+    \begin{enumerate}[(a)]
+        \item<1-> Nennen Sie ein typisches Einsatzgebiet für das jeweilige Modell.
+        \item<2->[] 
+        Relationales Modell: 
+            \begin{itemize}
+                \item Ein CMS.
+            \end{itemize}
+        Graphstrukturiertes Modell: 
+            \begin{itemize}
+                \item Datenspeicherung in der Bioinformatik/Medizin.
+                \item Speicherung von inhärent graphstrukturierten Daten wie etwa U-Bahn Netze ;-)
+            \end{itemize}
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Hausaufgabe 1}
+    \vspace{0.5cm}
+
+    \begin{enumerate}[(b)]
+        % \setcounter{enumii}{2}
+        \item<1-> Im Datenbankbereich unterscheidet man zwischen Modellen, 
+        welche ein festes Schema voraussetzen und anderen, 
+        die kein Schema benötigen. Ein Schema ist hierbei eine Vorgabe, 
+        wie Daten repräsentiert werden, beispielsweise, dass jede Vorlesung genau 
+        eine eindeutige Nummer hat, einen Namen von weniger als 200 Zeichen und eine 
+        Semesterwochenstundenzahl.
+        \begin{enumerate}[1)]
+            \item<1-> Was ist der Vorteil/Nachteil einer solchen Vorgabe für den Anwender?
+            \item<2->[] Schema sorgt für sauber und einheitlich abgelegte Daten 
+            und bietet Garantien über die Vollständigkeit und das Format der vorhanden Daten. 
+            Es geht Flexibilität verloren, da neue Daten, die abgelegt werden müssen, 
+            oft eine Schemaänderung notwendig machen.
+            \item<1-> Was ist der Vorteil/Nachteil einer solchen Vorgabe für den Entwickler des 
+            Datenbanksystems?
+            \item<2->[] Ein Schema erlaubt i.A. mehr Optimierungsmöglichkeiten da mehr Informationen 
+            und dadurch mehr “Constraints” über die Daten bekannt sind. 
+            Das Datenbanksystem kann so Anfragen schneller bearbeiten.
+        \end{enumerate}
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Hausaufgabe 2}
+    \vspace{0.5cm}
+
+    Angenommen, lediglich die partielle Funktion
+    \[ A \times C \rightarrow B \]
+    gilt. 
+    Beschriften Sie die Abbildung mit Funktionalitätsangaben.
+
+    Beantworten Sie nun die Frage, wie Funktionalitätsangaben aus partiellen 
+    Funktionen und umgekehrt ermittelt werden können. 
+    Merken Sie sich die Antwort für die Klausur ;-)
+    \pause 
+
+    Eine einfache Daumenregel ist, dass an die Entität, die auf der rechten Seite des 
+    Pfeiles einer geltenden partiellen Funktion steht, eine 1 annotiert wird. 
+    Es bietet sich daher an, für die sichere Bestimmung der 
+    Kardinaliätsangaben grundsätzlich die möglichen partiellen Funktionen aufzustellen und 
+    zu überlegen, welche Einschränkungen gewünscht sind.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Gruppenaufgabe 1}
+    \vspace{0.5cm}
+
+    Sie designen eine Webanwendung zur Univerwaltung. 
+    Früh entschließen Sie sich zum Einsatz eines Datenbanksystems als 
+    Backend für Ihre Daten. 
+    Ihr Kollege ist skeptisch und würde die Datenverwaltung lieber selbst implementieren. 
+    Überzeugen Sie ihn von Ihrem Entschluss. 
+    Finden Sie stichhaltige Antworten auf die folgenden von Ihrem Kollegen in den Raum 
+    gestellten Äußerungen:
+    \begin{enumerate}[(a)]
+        \item Die Installation und Wartung eines Datenbanksystems ist aufwendig, 
+        die Erstellung eines eigenen Datenformats ist straight-forward und flexibler.
+        \item Mehrbenutzersynchronisation wird in diesem Fall nicht benötigt.
+        \item Es ist unsinnig, das jeder Entwickler zunächst eine eigene Anfragesprache (SQL) 
+        lernen muss, nur um Daten aus der Datenbank zu extrahieren.
+        \item Redundanz ist hilfreich, wieso sollte man auf sie verzichten?
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Gruppenaufgabe 2}
+    \vspace{0.5cm}
+
+    Finden Sie ein Beispiel für ein Problem (bzw. eine Inkonsistenz), 
+    die auftreten kann, wenn unkontrolliert parallel auf Daten zugegriffen wird. 
+    Ein traditionelles Beispiel hierfür ist eine gegenseitige Bank-Überweisung zwischen zwei 
+    Konten A und B. Wenn A einen Betrag \( x \) zu B überweist und B einen Betrag \( x' \) 
+    zu A, sollte immer gelten \( Kontostand(A) + Kontostand(B) \) ist konstant, 
+    da sonst Geld verschwunden ist. 
+    Konstruieren Sie einen Ablauf zweier gegenseitiger Überweisungen, 
+    bei dem die Eigenschaft, dass die Kontostandssumme konstant sein soll nach dem 
+    Abschluss der zwei Überweisungen verletzt ist.
+
+    \pause
+    \begin{table}[]
+        \begin{tabular}{l|l|l}
+         Schritt & A & B \\ \hline
+        1 & \( read(a) \) &  \\
+        2 & \( a := a - x \) &  \\
+        3 &  & \( read(b) \) \\
+        4 &  & \( b := b - x' \) \\
+        5 &  & \( read(a) \) \\
+        6 &  & \( a := a + x' \) \\
+        7 &  & \( write(a) \) \\
+        8 & \( write(a) \) &  \\
+        \end{tabular}
+    \end{table}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document} % !!! NICHT ENTFERNEN !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
