@@ -1,0 +1,174 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TUM-Vorlage: Präsentation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Rechteinhaber:
+%     Technische Universität München
+%     https://www.tum.de
+% 
+% Gestaltung:
+%     ediundsepp Gestaltungsgesellschaft, München
+%     http://www.ediundsepp.de
+% 
+% Technische Umsetzung:
+%     eWorks GmbH, Frankfurt am Main
+%     http://www.eworks.de
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Zur Wahl des Seitenverhältnisses bitte einen der beiden folgenden Befehle
+% auskommentieren und den ausführen lassen:
+\input{../template/res/Praeambel16zu9.tex} % Seitenverhältnis 16:9
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../_Einstellungen.tex}                    % !!! DATEI ANPASSEN !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% \renewcommand{\PersonTitel}{Dr. rer. nat.}
+\newcommand{\Datum}{\today}
+
+\renewcommand{\PraesentationFusszeileZusatz}{| Tutorium Einführung in die Rechnerarchitektur WS 2018/2019}
+
+\title{Tutorübung 1}
+\author{\PersonVorname{} \PersonNachname}
+\institute[]{\UniversitaetName \\ \FakultaetName}
+\date[\Datum]{15. Oktober 2018}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../template/res/Anfang.tex} % !!! NICHT ENTFERNEN !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\setlength{\baselineskip}{\PraesentationAbstandAbsatz}
+\setlength{\parskip}{\baselineskip}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FOLIENSTIL: Standard
+% !!!ÄNDERUNG HIER:!!!
+\PraesentationMasterStandard
+
+\PraesentationTitelseite % Fügt die Startseite ein
+
+\begin{frame}
+    \frametitle{Zahlenbasen}
+    \vspace{0.5cm}
+
+    \begin{multicols}{2}
+        \begin{enumerate}
+            \item Zweierpotenzen bis \( 2^{64} \) 
+            \item Konvertierung Dezimal \( \rightarrow \) Binär: \\
+                \( 42_{10} \) \\
+                \( 255_{10} \) \\
+                \( 4369_{10} \)
+            \item Konvertierung Binär \( \rightarrow \) Dezimal: \\
+                \( 110110_{2} \) \\
+                \( 10010110_{2} \) \\
+                \( 110011001100_{2} \) \\
+            \item Konvertierung Dezimal \( \rightarrow \) Hexadezimal: \\
+                \( 42_{10} \) \\
+                \( 255_{10} \) \\
+                \( 4269_{10} \) \\
+        \end{enumerate}
+        \vfill\columnbreak
+        \pause
+
+        \begin{enumerate}
+            \item Lösung: Tafel
+            \item Lösung: \\
+                \( = 101010_{2} \) \\
+                \( = 11111111_{2} \) \\
+                \( = 1000100010001_{2} \)
+            \item Lösung: \\
+                \( = 54_{10} \) \\
+                \( = 150_{10} \) \\
+                \( = 3276_{10} \) \\
+            \item Lösung: \\
+                \( = 2A_{16} \) \\
+                \( = FF_{16} \) \\
+                \( = 1111_{16} \) \\
+        \end{enumerate}
+    \end{multicols}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Zahlenbasen 2}  
+    \vspace{0.5cm}
+
+    \begin{multicols}{2}
+        \begin{enumerate}
+            \setcounter{enumi}{4}
+            \item Konvertierung Binär \( \rightarrow \) Hexadezimal: \\
+                \( = 101010_{2} \) \\
+                \( = 11111111_{2} \) \\
+                \( = 1000100010001_{2} \)
+            \item Konvertierung Hexadezimal \( \rightarrow \) Dezimal: \\
+                \( BEEF_{16} \) \\
+                \( DEAD_{16} \) \\
+                \( FEED_{16} \) \\
+            \item Bensonderheiten der folgengen Hexwerte. Wofür kann man sie verwenden? \\
+                \( 0xFF \) \\
+                \( 0x00 \) \\
+                \( 0x55 \) \\
+                \( 0xAA \) \\
+        \end{enumerate}
+        \vfill\columnbreak
+        \pause
+
+        \begin{enumerate}
+            \setcounter{enumi}{4}
+            \item Lösung: \\
+                \( = 2A_{16} \) \\
+                \( = FF_{16} \) \\
+                \( = 1111_{16} \)
+            \item Lösung: \\
+                \( = 28879_{10} \) \\
+                \( = 57005_{10} \) \\
+                \( = 65261_{10} \) \\
+            \item Lösung: \\
+                \begin{itemize}
+                    \item Nutzung für Speichertests
+                    \item Stress von seriellen / parallelen Übertragungsystemen \( ( 0xFF_{16}, 0x00_{16} ) \)
+                    \item Test auf Übersprechen zwischen zwei Bitleitungen \( ( 0x55_{16}, 0xAA_{16} ) \)
+                \end{itemize}
+        \end{enumerate}
+    \end{multicols}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Rechenoperationen}
+    \vspace{0.5cm}
+
+    \begin{multicols}{2}
+        \begin{enumerate}
+            \setcounter{enumi}{7}
+            \item Addition in Binär \& Dezimal dann Ergebnisse vergleichen \\
+                \( 011001100_2 + 010110011_2 \) \\
+                \( 0001111011_2 + 0101011001_2 \) \\
+            \item Subtraktion in Binär \& Dezimal dann Ergebnisse vergleichen \\
+                \( 011001100_2 - 010110011_2 \) \\
+                \( 0001111011_2 - 0101011001_2 \) \\
+        \end{enumerate}
+        \vfill\columnbreak
+        \pause
+
+        \begin{enumerate}
+            \setcounter{enumi}{7}
+            \item Lösung: \\
+                \( 011001100_2 + 010110011_2 = 0101111111_2 \) \\
+                \( 0001111011_2 + 0101011001_2 = 0111010100_2 \) \\
+            \item Lösung: \\
+                \( 011001100_2 - 010110011_2 = 000011001_2 \) \\
+                \( 0001111011_2 - 0101011001_2 =  (\hdots 11)1100100010_2\) \\
+        \end{enumerate}
+    \end{multicols}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document} % !!! NICHT ENTFERNEN !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
