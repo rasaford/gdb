@@ -118,6 +118,77 @@
 		\item \( Q_1 := R \leftantijoin_{a_1 = b_1} S \)
 	\end{enumerate}
 \end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Quiz 1}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Erweitern Sie die Uni-Datenbank um die Relation:
+
+		\[ \text{StudienPlan}: \{ [\text{Semester}, \text{VorlesungsNr}] \} \]
+
+		\begin{enumerate}[a)]
+			\item<1-> Bestimmen Sie in relationaler Algebra die Studenten, die alle für ihr Semester
+				vorgesehenen Vorlesungen hören.
+			\item<2-> Bestimmen Sie in SQL die Studenten,
+				die nur Vorlesungen ihres Semesters hören (nicht notwendigerweise alle).
+		\end{enumerate}
+		\vfill\columnbreak
+		\pause
+
+		In Operatorbaumdarstellung:
+		\begin{center}
+			\includegraphics[height=.3\paperheight]{./quiz1.png}
+		\end{center}
+	\end{multicols}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Quiz 1}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Lösung:
+		\begin{minted}{sql}
+SELECT *
+FROM studenten s
+WHERE NOT EXISTS (
+	SELECT *
+	FROM hoeren h, studienplan sp
+	WHERE s.matrnr = h.matrnr
+	  AND h.vorlnr = sp.vorlnr
+	  AND s.semester <> sp.semester
+) AND EXISTS (
+	SELECT *
+	FROM hoeren h
+	WHERE h.marnr = s.matrnr
+);
+		\end{minted}
+		\vfill\columnbreak
+		\pause
+		
+		Alternativlösung mit 'all':
+		\begin{minted}{sql}
+SELECT *
+FROM studenten s
+WHERE s.semester = all(
+	SELECT sp.semester
+	FROM hoeren h, studienplan sp
+	WHERE s.matrnr = h.matrnr 
+	  AND h.vorlnr = sp.vorlnr
+) AND EXISTS (
+	SELECT *
+	FROM hoeren h
+	WHERE h.matrnr = s.matrnr
+);
+		\end{minted}
+	\end{multicols}
+
+\end{frame}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document} % !!! NICHT ENTFERNEN !!!
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
