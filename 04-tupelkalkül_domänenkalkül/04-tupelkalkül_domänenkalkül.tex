@@ -1,0 +1,123 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TUM-Vorlage: Präsentation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Rechteinhaber:
+%     Technische Universität München
+%     https://www.tum.de
+% 
+% Gestaltung:
+%     ediundsepp Gestaltungsgesellschaft, München
+%     http://www.ediundsepp.de
+% 
+% Technische Umsetzung:
+%     eWorks GmbH, Frankfurt am Main
+%     http://www.eworks.de
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Zur Wahl des Seitenverhältnisses bitte einen der beiden folgenden Befehle
+% auskommentieren und den ausführen lassen:
+\input{../template/res/Praeambel16zu9.tex} % Seitenverhältnis 16:9
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../_Einstellungen.tex}                    % !!! DATEI ANPASSEN !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% \renewcommand{\PersonTitel}{Dr. rer. nat.}
+\newcommand{\Datum}{\today}
+
+\renewcommand{\PraesentationFusszeileZusatz}{| Tutorium Grundlagen: Datenbanken WS 18/19}
+
+\title{Tutorübung 4}
+\author{\PersonVorname{} \PersonNachname}
+\institute[]{\UniversitaetName \\ \FakultaetName}
+\date[\Datum]{15. Oktober 2018}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../template/res/Anfang.tex} % !!! NICHT ENTFERNEN !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\setlength{\baselineskip}{\PraesentationAbstandAbsatz}
+\setlength{\parskip}{\baselineskip}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FOLIENSTIL: Standard
+% !!!ÄNDERUNG HIER:!!!
+\PraesentationMasterStandard
+
+\PraesentationTitelseite % Fügt die Startseite ein
+
+\begin{frame}
+	\frametitle{Hausaufgabe 1}
+	\vspace{0.5cm}
+
+	Formulieren Sie folgende Anfragen auf dem bekannten Universitätsschema in der Relationenalgebra:
+	\begin{enumerate}[a)]
+		\item Finden Sie die \textit{Assistenten} vom \textit{Professoren}, die den Stundenten Fichte unterrichtet haben -
+		      z.B. als potentielle Betreuer seiner Diplomarbeit.
+		\item Finden Sie die \textit{Studenten}, die \textit{Vorlesungen} hören (bzw. gehört haben), für die ihnen
+		      die direkten Voraussetzungen fehlen.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Hausaufgabe 2}
+	\vspace{0.5cm}
+
+	Formulieren Sie die folgenden Anfragen auf dem bekannten Universitätsschema im
+	relationalen \textbf{Tupelkalkül} und im relationalen \textbf{Domänenkalkül}:
+	\begin{enumerate}[a)]
+		\item Geben Sie alle \textit{Vorlesungen} an, die der \textit{Student} Xenokrates gehört hat.
+		\item Geben Sie die Titel der direkten Voraussetzungen für die \textit{Vorlesung} Wissenschaftstheorie an.
+		\item Geben Sie Paare von \textit{Studenten}(-Namen) an, die sich aus der \textit{Vorlesung} Grundzüge kennen.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Hausaufgabe 3}
+	\vspace{0.5cm}
+
+	Gegeben sei die folgende Relation \textbf{Zehnkampf} mit Athletennamen und den von ihnen erreichten Punkten im Zehnkampf:
+
+	\begin{enumerate}[a)]
+		\item Ermitteln Sie die Goldmedaillengewinner in relationaler Algebra. \\
+		      (Eine Goldmedaille bekommen alle, für die gilt: es gibt niemand besseren (also mit mehr Punkten).)
+		\item Ermitteln Sie die Silbermedaillengewinner im Tupelkalkül. \\
+		      (Eine Silbermedaille bekommen alle, für die gilt: es gibt genau eine/n bessere/n.)
+	\end{enumerate}
+	\begin{table}[]
+		\begin{tabular}{c|c}
+			Name         & Punkte       \\ \hline
+			Eaton        & 8869         \\
+			Suarez       & 8523         \\
+			Behrenbruch  & 8126         \\
+			Hardee       & 8671         \\
+			\( \hdots \) & \( \hdots \)
+		\end{tabular}
+	\end{table}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Hausaufgabe 4}
+	\vspace{0.5cm}
+
+	Gegeben seien die beiden Relationen \( R: {[a_1, \hdots, a_n]} \) und \( S: {[b_1, \hdots, b_m]} \). \\
+	Geben Sie die folgenden Ausdrücke im Tupel- und Domänenkalkül an:
+	\begin{enumerate}[a)]
+		\item \( Q_1 := R \join_{a_1 = b_1} S \)
+		\item \( Q_1 := R \leftouterjoin_{a_1 = b_1} S \)
+		\item \( Q_1 := R \rightsemijoin_{a_1 = b_1} S \)
+		\item \( Q_1 := R \leftantijoin_{a_1 = b_1} S \)
+	\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document} % !!! NICHT ENTFERNEN !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

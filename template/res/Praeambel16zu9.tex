@@ -1,11 +1,11 @@
 %\documentclass[aspectratio=169]{beamer}
 \documentclass[t,aspectratio=169]{beamer}
 \usepackage[
-    orientation=landscape,
-    size=custom,
-    width=25.4,
-    height=14.2875,
-    scale=0.5
+	orientation=landscape,
+	size=custom,
+	width=25.4,
+	height=14.2875,
+	scale=0.5
 ]{beamerposter}
 \usepackage{verbatim}
 \usepackage{booktabs}
@@ -25,4 +25,22 @@
 \newcommand{\PraesentationAbstandAbsatz}{18pt}
 \newcommand{\PraesentationPositionKorrekturOben}{-1cm}
 \newcommand{\PraesentationBeispieleSchriftgroessen}{25 | 18 | 14 | 11}
+
+%% Join Operator declarations
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{ifsym}
+
+\def\ojoin{\setbox0=\hbox{$\bowtie$}%
+    \rule[-.02ex]{.25em}{.4pt}\llap{\rule[\ht0]{.25em}{.4pt}}}
+
+\def\leftouterjoin{\mathbin{\ojoin\mkern-5.8mu\bowtie}}
+\def\rightouterjoin{\mathbin{\bowtie\mkern-5.8mu\ojoin}}
+\def\fullouterjoin{\mathbin{\ojoin\mkern-5.8mu\bowtie\mkern-5.8mu\ojoin}}
+\DeclareMathOperator*{\join}{\bowtie}
+\DeclareMathOperator*{\leftsemijoin}{\ltimes}
+\DeclareMathOperator*{\rightsemijoin}{\rtimes}
+\DeclareMathOperator*{\rightantijoin}{\rhd}
+\DeclareMathOperator*{\leftantijoin}{\lhd}
+
 \input{../template/res/Praeambel.tex}
