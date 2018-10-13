@@ -1,0 +1,142 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TUM-Vorlage: Präsentation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Rechteinhaber:
+%     Technische Universität München
+%     https://www.tum.de
+% 
+% Gestaltung:
+%     ediundsepp Gestaltungsgesellschaft, München
+%     http://www.ediundsepp.de
+% 
+% Technische Umsetzung:
+%     eWorks GmbH, Frankfurt am Main
+%     http://www.eworks.de
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Zur Wahl des Seitenverhältnisses bitte einen der beiden folgenden Befehle
+% auskommentieren und den ausführen lassen:
+\input{../template/res/Praeambel16zu9.tex} % Seitenverhältnis 16:9
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../_Einstellungen.tex}                    % !!! DATEI ANPASSEN !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% \renewcommand{\PersonTitel}{Dr. rer. nat.}
+\newcommand{\Datum}{\today}
+
+\renewcommand{\PraesentationFusszeileZusatz}{| Tutorium Einführung in die Rechnerarchitektur WS 2018/2019}
+
+\title{Tutorübung 2}
+\author{\PersonVorname{} \PersonNachname}
+\institute[]{\UniversitaetName \\ \FakultaetName}
+\date[\Datum]{15. Oktober 2018}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../template/res/Anfang.tex} % !!! NICHT ENTFERNEN !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\setlength{\baselineskip}{\PraesentationAbstandAbsatz}
+\setlength{\parskip}{\baselineskip}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FOLIENSTIL: Standard
+% !!!ÄNDERUNG HIER:!!!
+\PraesentationMasterStandard
+
+\PraesentationTitelseite % Fügt die Startseite ein
+
+\begin{frame}
+	\frametitle{Hausaufgabe 1}
+	\vspace{0.5cm}
+
+	Beim konzeptuellen Entwurf hat man gewisse Freiheitsgrade hinsichtlich der Modellierung der realen Welt.
+	Unter anderem hat man folgende Alternativen, die Sie an unserem Universitätsschema beispielhaft illustrieren sollten:
+
+	\begin{itemize}
+		\item Man kann ternäre Beziehungen in binäre Beziehungen transformieren.
+
+		      Betrachten Sie dazu die Beziehung \textit{prüfen} und erläutern Sie die Vor- und Nachteile
+		      einer solchen Transformation.
+		\item Man hat manchmal die Wahl, ein Konzept der realen Welt als Beziehung
+		      oder als Entitytyp zu modellieren. Erörtern Sie dies wiederum am Beispiel
+		      der Beziehung \textit{prüfen} im Gegensatz zu einem eigenständigen Entitytyp \textit{Prüfungen}.
+		\item Ein Konzept der realen Welt kann manchmal als Entitytyp mit zugehörigem
+		      Beziehungstyp und manchmal als Attribut dargestellt werden.
+		      Ein Beispiel hierfür ist das Attribut Raum des Entitytyps
+		      \textit{Professoren} im bekannten Uni Schema. Diskutieren Sie die Alternativen.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Hausaufgabe 2}
+	\vspace{0.5cm}
+
+	Formulieren Sie folgende Anfragen auf dem bekannten Universitätsschema in der relationalen Algebra:
+	\begin{enumerate}[a)]
+		\item Finden Sie alle \textit{Vorlesungen}, die keine Hörer haben.
+		\item Finden Sie alle \textit{Studenten}, die alle \textit{Vorlesungen} hören.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Gruppenaufgabe 1}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Gegeben sei die ER-Modellierung von Zugverbindungen in der Abbildung.
+		Beachten Sie: verbindet modelliert ein Teilstück einer Verbindung,
+		d.h. auf der Strecke München \( \rightarrow \) Hamburg gibt es einen Eintrag für
+		die Teilstrecke von München nach Nürnberg,
+		einen Eintrag für Nürnberg nach Würzburg,
+		einen Eintrag für die Teilstrecke Würzburg nach Göttingen und einen Eintrag von Göttingen nach Hamburg.
+		\begin{enumerate}[a)]
+			\item<1-> Fügen Sie bei den Beziehungen Funktionalitätsangaben hinzu.
+			\item<2-> Übertragen Sie das ER-Modell in ein relationales Schema.
+			\item<3-> Verfeinern Sie das relationale Schema soweit möglich durch Eliminierung von Relationen.
+		\end{enumerate}
+
+		\vfill\columnbreak
+		\begin{center}
+			\includegraphics[height=.5\paperheight]{./er_modell1.png}
+		\end{center}
+	\end{multicols}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Gruppenaufgabe 2}
+	\vspace{0.5cm}
+
+	iBike ist ein neuer Anbieter von free-floating bike sharing in München,
+	d.h. die Kunden können die Fahrräder an
+	beliebigen Orten im Stadtgebiet ausleihen und auch wieder abstellen.
+	Modellieren Sie das iBike-System, das \textit{Kunden}, \textit{Fahrräder} und
+	\textit{individuelle Fahrten} (von wann bis wann, von wo nach wo, Preis) verwaltet,
+	als ER-Diagramm. Tragen Sie min-max und Funktionalitätsangaben ein.
+
+	Stellen Sie die folgenden Anfragen an das iBike System in relationaler Algebra:
+	\begin{enumerate}[a)]
+		\item Welche Fahrräder wurden noch nie gefahren?
+		\item Was ist der letzte bekannte Standort vom Fahrrad mit der Kennung '123'?
+		\item Geben Sie eine Liste der Fahrräder aus, mit denen der Kunde 'Alfons Kemper' schon gefahren ist.
+		\item Geben Sie eine Liste der Fahrräder aus, mit denen der Kunde ’Alfons Kemper’ \textbf{noch nicht} gefahren ist.
+		\item Wer ist schon mit \textbf{allen} Fahrrädern gefahren?
+		\item Am Standort '48.1718164, 11.5510174' wurden sehr viele Fahrräder abgestellt
+		      (das ist mitten im Olympiasee). iBike möchte wissen,
+		      ob jemand mehr als ein Fahrrad dort abgestellt hat.
+		      Dann ist dieser Kunde vermutlich ein Vandale.
+	\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document} % !!! NICHT ENTFERNEN !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
