@@ -1,0 +1,264 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TUM-Vorlage: Präsentation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Rechteinhaber:
+%     Technische Universität München
+%     https://www.tum.de
+% 
+% Gestaltung:
+%     ediundsepp Gestaltungsgesellschaft, München
+%     http://www.ediundsepp.de
+% 
+% Technische Umsetzung:
+%     eWorks GmbH, Frankfurt am Main
+%     http://www.eworks.de
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Zur Wahl des Seitenverhältnisses bitte einen der beiden folgenden Befehle
+% auskommentieren und den ausführen lassen:
+\input{../template/res/Praeambel16zu9.tex} % Seitenverhältnis 16:9
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../_Einstellungen.tex}                    % !!! DATEI ANPASSEN !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% \renewcommand{\PersonTitel}{Dr. rer. nat.}
+\newcommand{\Datum}{\today}
+
+\renewcommand{\PraesentationFusszeileZusatz}{| Tutorium Grundlagen: Datenbanken WS 18/19}
+
+\title{Tutorübung 6}
+\author{\PersonVorname{} \PersonNachname}
+\institute[]{\UniversitaetName \\ \FakultaetName}
+\date[\Datum]{15. Oktober 2018}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../template/res/Anfang.tex} % !!! NICHT ENTFERNEN !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\setlength{\baselineskip}{\PraesentationAbstandAbsatz}
+\setlength{\parskip}{\baselineskip}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FOLIENSTIL: Standard
+% !!!ÄNDERUNG HIER:!!!
+\PraesentationMasterStandard
+
+\PraesentationTitelseite % Fügt die Startseite ein
+
+\begin{frame}
+	\frametitle{Hausaufgabe 1}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		"Fleißige Studenten": Formulieren Sie eine SQL-Anfrage, 
+		um die Studenten zu ermitteln, die mehr SWS belegt haben als der Durchschnitt. 
+		Berücksichtigen Sie dabei auch Totalverweigerer, die gar keine Vorlesungen hören.
+		\vfill\columnbreak
+
+		\begin{center}
+			\includegraphics[height=.6\paperheight]{../img/uni.pdf}
+		\end{center}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hausaufgabe 1}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		"Fleißige Studenten": Formulieren Sie eine SQL-Anfrage, 
+		um die Studenten zu ermitteln, die mehr SWS belegt haben als der Durchschnitt. 
+		Berücksichtigen Sie dabei auch Totalverweigerer, die gar keine Vorlesungen hören.
+		\begin{minted}{sql}
+WITH GesamtSWS AS (
+	SELECT sum(SWS * 1.00) AS AnzSWS
+	FROM hoeren h, Vorlesungen v
+	WHERE v.VorlNr = h.VorlNr
+),
+GesamtStudenten AS (
+	SELECT count(MatrNr) AS AnzStudenten
+	FROM Studenten
+)
+		\end{minted}
+		\vfill\columnbreak
+
+		\begin{minted}{sql}
+SELECT *
+FROM Studenten s
+WHERE s.MatrNr in (
+	SELECT h.MatrNr
+	FROM hoeren h, Vorlesungen v
+	WHERE h.VorlNr = v.VorlNr
+	GROUP BY h.MatrNr
+	HAVING sum(SWS) > (
+		SELECT AnzSWS / AnzStudenten
+		FROM GesamtSWS, GesamtStudenten
+	)
+);
+		\end{minted}
+
+	\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hausaufgabe 2}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Was bringt der Vorlesungsbesuch? Finden Sie heraus, ob es für Prüfungen von Vorteil ist, 
+		die jeweiligen Vorlesungen auch gehört zu haben. 
+		
+		Ermitteln Sie dazu die Durchschnittsnote der Prüfungen, zu denen die Studenten 
+		die Vorlesungen nicht gehört haben und die Durchschnittsnote der 
+		Prüfungen, zu denen sie die Vorlesungen gehört haben. \\
+		- Formulieren Sie Ihre Antwort in SQL
+		\vfill\columnbreak
+
+		\begin{center}
+			\includegraphics[height=.6\paperheight]{../img/uni.pdf}
+		\end{center}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hausaufgabe 2}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		\begin{minted}{sql}
+WITH nichtGehoert AS (
+	SELECT avg(Note) as DnoteVLNichtGehoert
+	FROM pruefen p
+	WHERE NOT EXISTS (
+		SELECT *
+		FROM hoeren h
+		WHERE h.VorlNr = p.VorlNr
+		  AND h.MatrNr = p.MatrNr
+	)
+),
+		\end{minted}
+		\vfill\columnbreak
+
+		\begin{minted}{sql}
+gehoert AS (
+	SELECT avg(Note) AS DnoteVLGehoert
+	FROM pruefen p
+	WHERE EXISTS (
+		SELECT *
+		FROM hoeren h
+		WHERE h.VorlNr = p.VorlNr
+		  AND h.MatrNr = p.MatrNr
+	)
+)
+SELECT *
+FROM nichtGehoert, gehoert;
+		\end{minted}
+	\end{multicols}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Hausaufgabe 3}
+\vspace{0.5cm}
+
+\begin{multicols}{2}
+	Welche Studenten haben alle Vorlesungen, 
+	die sie haben prüfen lassen, auch tatsächlich vorher gehört?
+
+	Tipp: \textit{'Es darf keine Vorlesung geben, die geprüft wurde, 
+	zu der es aber keinen Eintrag in hören gibt.'}
+	\vfill\columnbreak
+
+	\begin{center}
+		\includegraphics[height=.6\paperheight]{../img/uni.pdf}
+	\end{center}
+\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Hausaufgabe 3}
+\vspace{0.5cm}
+
+\begin{multicols}{2}
+	Welche Studenten haben alle Vorlesungen, 
+	die sie haben prüfen lassen, auch tatsächlich vorher gehört?
+
+	Tipp: \textit{'Es darf keine Vorlesung geben, die geprüft wurde, 
+	zu der es aber keinen Eintrag in hören gibt.'}
+	\vfill\columnbreak
+
+	\begin{minted}{sql}
+SELECT *
+FROM Studenten s
+WHERE NOT EXISTS (
+	SELECT *
+	FROM pruefen p
+	WHERE s.MatrNr = p.MatrNr
+	  AND NOT EXISTS (
+		  SELECT *
+		  FROM hoeren h
+		  WHERE h.MatrNr = s.MatrNr
+		    AND h.VorlNr = p.VorlNr
+	  )
+);
+	\end{minted}
+\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Hausaufgabe 4}
+\vspace{0.5cm}
+
+\begin{multicols}{2}
+	"Frühestes Semester": Formulieren Sie eine SQL-Anfrage, 
+	um das Semester zu ermitteln in dem die Vorlesung "Der Wiener Kreis" frühestens gehört 
+	werden kann. Testen Sie die Anfrage auch mit anderen Vorlesungen, 
+	insbesondere mit "Logik".
+	\vfill\columnbreak
+	
+	\begin{center}
+		\includegraphics[height=.6\paperheight]{../img/uni.pdf}
+	\end{center}
+\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Hausaufgabe 4}
+\vspace{0.5cm}
+
+\begin{multicols}{2}
+	"Frühestes Semester": Formulieren Sie eine SQL-Anfrage, 
+	um das Semester zu ermitteln in dem die Vorlesung "Der Wiener Kreis" frühestens gehört 
+	werden kann. Testen Sie die Anfrage auch mit anderen Vorlesungen, 
+	insbesondere mit "Logik".
+	\vfill\columnbreak
+
+	\begin{minted}{sql}
+WITH RECURSIVE voraussetzenRek(vorlNr, counter) AS (
+	SELECT v.VorlNr, 1 as counter
+	FROM Vorlesungen v
+	WHERE v.Titel = 'Der Wiener Kreis'
+) UNION (
+	SELECT vs.vorgaenger, vsr.counter + 1 
+	                               AS counter
+	FROM voraussetzenRek vsr, voraussetzen vs
+	WHERE vsr.VorlNr = vs.Nachfolger
+)
+SELECT max(counter) as fruehestesSemester
+FROM voraussetzenRek
+	\end{minted}
+\end{multicols}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document} % !!! NICHT ENTFERNEN !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
