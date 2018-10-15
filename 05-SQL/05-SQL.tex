@@ -1,0 +1,683 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TUM-Vorlage: Präsentation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Rechteinhaber:
+%     Technische Universität München
+%     https://www.tum.de
+% 
+% Gestaltung:
+%     ediundsepp Gestaltungsgesellschaft, München
+%     http://www.ediundsepp.de
+% 
+% Technische Umsetzung:
+%     eWorks GmbH, Frankfurt am Main
+%     http://www.eworks.de
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Zur Wahl des Seitenverhältnisses bitte einen der beiden folgenden Befehle
+% auskommentieren und den ausführen lassen:
+\input{../template/res/Praeambel16zu9.tex} % Seitenverhältnis 16:9
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../_Einstellungen.tex}                    % !!! DATEI ANPASSEN !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% \renewcommand{\PersonTitel}{Dr. rer. nat.}
+\newcommand{\Datum}{\today}
+
+\renewcommand{\PraesentationFusszeileZusatz}{| Tutorium Grundlagen: Datenbanken WS 18/19}
+
+\title{Tutorübung 5}
+\author{\PersonVorname{} \PersonNachname}
+\institute[]{\UniversitaetName \\ \FakultaetName}
+\date[\Datum]{15. Oktober 2018}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../template/res/Anfang.tex} % !!! NICHT ENTFERNEN !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\setlength{\baselineskip}{\PraesentationAbstandAbsatz}
+\setlength{\parskip}{\baselineskip}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FOLIENSTIL: Standard
+% !!!ÄNDERUNG HIER:!!!
+\PraesentationMasterStandard
+
+\PraesentationTitelseite % Fügt die Startseite ein
+
+\begin{frame}
+	\frametitle{Hausaufgabe 1}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Formulieren Sie die folgenden Anfragen auf dem bekannten Unischema in SQL:
+		\begin{enumerate}[a)]
+			\item Finden Sie die \textit{Studenten}, die Sokrates aus \textit{Vorlesung(en)} kennen.
+			\item Finden Sie die Studenten, die Vorlesungen hören, die auch Fichte hört.
+			% \item Finden Sie die Assistenten von Professoren, die den Studenten Fichte unterrichtet haben – z.B. als potentielle Betreuer seiner Diplomarbeit.
+			% \item Geben Sie die Namen der Professoren an, die Xenokrates aus Vorlesungen kennt.
+			% \item Welche Vorlesungen werden von Studenten im Grundstudium (1.-4. Semester) gehört? \\
+			%       Geben Sie die Titel dieser Vorlesungen an.
+		\end{enumerate}
+		\vfill\columnbreak
+
+		\begin{center}
+			\includegraphics[height=.6\paperheight]{../img/uni.pdf}
+		\end{center}
+
+	\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hausaufgabe 1}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Formulieren Sie die folgenden Anfragen auf dem bekannten Unischema in SQL:
+		\begin{enumerate}[a)]
+			\item Finden Sie die \textit{Studenten}, die Sokrates aus \textit{Vorlesung(en)} kennen.
+			% \item Finden Sie die Studenten, die Vorlesungen hören, die auch Fichte hört.
+			% \item Finden Sie die Assistenten von Professoren, die den Studenten Fichte unterrichtet haben – z.B. als potentielle Betreuer seiner Diplomarbeit.
+			% \item Geben Sie die Namen der Professoren an, die Xenokrates aus Vorlesungen kennt.
+			% \item Welche Vorlesungen werden von Studenten im Grundstudium (1.-4. Semester) gehört? \\
+			%       Geben Sie die Titel dieser Vorlesungen an.
+		\end{enumerate}
+
+		\begin{minted}{sql}
+SELECT s.Name, s.MatrNr
+FROM Studenten s, hoeren h, Vorlesungen v, 
+     Professoren p
+WHERE s.MatrNr = h.MatrNr
+  AND h.VorlNr = v.VorlNr
+  AND v.gelesenVon = p.PersNr
+  AND p.Name = 'Sokrates';
+/* Es kann DISTINCT verwendet werden, 
+   um Duplikate zu vermeiden */
+		\end{minted}
+		\vfill\columnbreak
+
+		\begin{center}
+			\includegraphics[height=.6\paperheight]{../img/uni.pdf}
+		\end{center}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hausaufgabe 1}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Formulieren Sie die folgenden Anfragen auf dem bekannten Unischema in SQL:
+		\begin{enumerate}[b)]
+			% \item Finden Sie die \textit{Studenten}, die Sokrates aus \textit{Vorlesung(en)} kennen.
+			\item Finden Sie die Studenten, die Vorlesungen hören, die auch Fichte hört.
+			% \item Finden Sie die Assistenten von Professoren, die den Studenten Fichte unterrichtet haben – z.B. als potentielle Betreuer seiner Diplomarbeit.
+			% \item Geben Sie die Namen der Professoren an, die Xenokrates aus Vorlesungen kennt.
+			% \item Welche Vorlesungen werden von Studenten im Grundstudium (1.-4. Semester) gehört? \\
+			%       Geben Sie die Titel dieser Vorlesungen an.
+		\end{enumerate}
+
+		\begin{minted}{sql}
+SELECT DISTINCT s1.Name, s1.MatrNr
+FROM Studenten s1, Studenten s2, 
+	 hoeren h1, hoeren h2
+WHERE s1.MatrNr = h1.MatrNr
+  AND s1.MatrNr != s2.MatrNr
+  AND s2.MatrNr = h2.MatrNr
+  AND h1.VorlNr = h2.VorlNr
+  AND s2.Name = 'Fichte';
+		\end{minted}
+		\vfill\columnbreak
+
+		\begin{center}
+			\includegraphics[height=.6\paperheight]{../img/uni.pdf}
+		\end{center}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hausaufgabe 1}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Formulieren Sie die folgenden Anfragen auf dem bekannten Unischema in SQL:
+		\begin{enumerate}[a)]
+			\setcounter{enumi}{2}
+			% \item Finden Sie die \textit{Studenten}, die Sokrates aus \textit{Vorlesung(en)} kennen.
+			% \item Finden Sie die Studenten, die Vorlesungen hören, die auch Fichte hört.
+			\item Finden Sie die Assistenten von Professoren, die den Studenten Fichte unterrichtet haben – z.B. als potentielle Betreuer seiner Diplomarbeit.
+			\item Geben Sie die Namen der Professoren an, die Xenokrates aus Vorlesungen kennt.
+			% \item Welche Vorlesungen werden von Studenten im Grundstudium (1.-4. Semester) gehört? \\
+			%       Geben Sie die Titel dieser Vorlesungen an.
+		\end{enumerate}
+		\vfill\columnbreak
+
+		\begin{center}
+			\includegraphics[height=.6\paperheight]{../img/uni.pdf}
+		\end{center}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hausaufgabe 1}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Formulieren Sie die folgenden Anfragen auf dem bekannten Unischema in SQL:
+		\begin{enumerate}[a)]
+			\setcounter{enumi}{2}
+			% \item Finden Sie die \textit{Studenten}, die Sokrates aus \textit{Vorlesung(en)} kennen.
+			% \item Finden Sie die Studenten, die Vorlesungen hören, die auch Fichte hört.
+			\item Finden Sie die Assistenten von Professoren, die den Studenten Fichte unterrichtet haben – z.B. als potentielle Betreuer seiner Diplomarbeit.
+			% \item Geben Sie die Namen der Professoren an, die Xenokrates aus Vorlesungen kennt.
+			% \item Welche Vorlesungen werden von Studenten im Grundstudium (1.-4. Semester) gehört? \\
+			%       Geben Sie die Titel dieser Vorlesungen an.
+		\end{enumerate}
+		\begin{minted}{sql}
+SELECT a.Name, a.PersNr
+FROM Assistenten a, Professoren p, Vorlesungen v, 
+	 hoeren h, Studenten s
+WHERE a.Boss = p.PersNr
+  AND p.PersNr = v.gelesenVon
+  AND v.VorlNr = h.VorlNr
+  AND h.MatrNr = s.MatrNr
+  AND s.Name = 'Fichte';
+		\end{minted}
+		\vfill\columnbreak
+
+		\begin{center}
+			\includegraphics[height=.6\paperheight]{../img/uni.pdf}
+		\end{center}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hausaufgabe 1}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Formulieren Sie die folgenden Anfragen auf dem bekannten Unischema in SQL:
+		\begin{enumerate}[a)]
+			\setcounter{enumi}{3}
+			% \item Finden Sie die \textit{Studenten}, die Sokrates aus \textit{Vorlesung(en)} kennen.
+			% \item Finden Sie die Studenten, die Vorlesungen hören, die auch Fichte hört.
+			% \item Finden Sie die Assistenten von Professoren, die den Studenten Fichte unterrichtet haben – z.B. als potentielle Betreuer seiner Diplomarbeit.
+			\item Geben Sie die Namen der Professoren an, die Xenokrates aus Vorlesungen kennt.
+			% \item Welche Vorlesungen werden von Studenten im Grundstudium (1.-4. Semester) gehört? \\
+			%       Geben Sie die Titel dieser Vorlesungen an.
+		\end{enumerate}
+		\begin{minted}{sql}
+SELECT p.PersNr, p.Name
+FROM Professoren p, hoeren h, Vorlesungen v,
+	 Studenten s
+WHERE p.PersNr = v.gelesenVon
+  AND v.VorlNr = h.VorlNr
+  AND h.MatrNr = s.MatrNr
+  AND s.Name = 'Xenokrates';
+		\end{minted}
+		\vfill\columnbreak
+
+		\begin{center}
+			\includegraphics[height=.6\paperheight]{../img/uni.pdf}
+		\end{center}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hausaufgabe 1}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Formulieren Sie die folgenden Anfragen auf dem bekannten Unischema in SQL:
+		\begin{enumerate}[a)]
+			\setcounter{enumi}{4}
+			% \item Finden Sie die \textit{Studenten}, die Sokrates aus \textit{Vorlesung(en)} kennen.
+			% \item Finden Sie die Studenten, die Vorlesungen hören, die auch Fichte hört.
+			% \item Finden Sie die Assistenten von Professoren, die den Studenten Fichte unterrichtet haben – z.B. als potentielle Betreuer seiner Diplomarbeit.
+			% \item Geben Sie die Namen der Professoren an, die Xenokrates aus Vorlesungen kennt.
+			\item Welche Vorlesungen werden von Studenten im Grundstudium (1.-4. Semester) gehört? \\
+			      Geben Sie die Titel dieser Vorlesungen an.
+		\end{enumerate}
+		\vfill\columnbreak
+
+		\begin{center}
+			\includegraphics[height=.6\paperheight]{../img/uni.pdf}
+		\end{center}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hausaufgabe 1}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Formulieren Sie die folgenden Anfragen auf dem bekannten Unischema in SQL:
+		\begin{enumerate}[a)]
+			\setcounter{enumi}{4}
+			% \item Finden Sie die \textit{Studenten}, die Sokrates aus \textit{Vorlesung(en)} kennen.
+			% \item Finden Sie die Studenten, die Vorlesungen hören, die auch Fichte hört.
+			% \item Finden Sie die Assistenten von Professoren, die den Studenten Fichte unterrichtet haben – z.B. als potentielle Betreuer seiner Diplomarbeit.
+			% \item Geben Sie die Namen der Professoren an, die Xenokrates aus Vorlesungen kennt.
+			\item Welche Vorlesungen werden von Studenten im Grundstudium (1.-4. Semester) gehört? \\
+			      Geben Sie die Titel dieser Vorlesungen an.
+		\end{enumerate}
+		\begin{minted}{sql}
+SELECT v.Titel
+FROM Vorlesungen v, hoeren h, Studenten s
+WHERE v.VorlNr = h.VorlNr
+  AND h.MatrNr = s.MatrNr
+  AND s.Semester BETWEEN 1 AND 4;
+/* BETWEEN: Anfang / Ende inklusiv */
+		\end{minted}
+		\vfill\columnbreak
+
+		\begin{center}
+			\includegraphics[height=.6\paperheight]{../img/uni.pdf}
+		\end{center}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Hausaufgabe 2}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Formulieren Sie die folgenden Anfragen auf dem bekannten Unischema in SQL:
+		\begin{enumerate}[a)]
+			\item Bestimmen Sie das durchschnittliche Semester der Studenten der Universität.
+			\item Bestimmen Sie das durchschnittliche Semester der Studenten, die mindestens eine Vorlesung bei Sokrates hören.
+			% \item Bestimmen Sie, wie viele Vorlesungen im Schnitt pro Student gehört werden. 
+			% 	  Beachten Sie, dass Studenten, die keine Vorlesung hören, in das Ergebnis einfließen müssen.
+		\end{enumerate}
+		\vfill\columnbreak
+
+		\begin{center}
+			\includegraphics[height=.6\paperheight]{../img/uni.pdf}
+		\end{center}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hausaufgabe 2}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Formulieren Sie die folgenden Anfragen auf dem bekannten Unischema in SQL:
+		\begin{enumerate}[a)]
+			\item Bestimmen Sie das durchschnittliche Semester der Studenten der Universität.
+			% \item Bestimmen Sie das durchschnittliche Semester der Studenten, die mindestens eine Vorlesung bei Sokrates hören.
+			% \item Bestimmen Sie, wie viele Vorlesungen im Schnitt pro Student gehört werden. 
+			% 	  Beachten Sie, dass Studenten, die keine Vorlesung hören, in das Ergebnis einfließen müssen.
+		\end{enumerate}
+		\begin{minted}{sql}
+SELECT avg(semester * 1.0) 
+FROM Studenten
+		\end{minted}
+		\vfill\columnbreak
+
+		\begin{center}
+			\includegraphics[height=.6\paperheight]{../img/uni.pdf}
+		\end{center}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hausaufgabe 2}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Formulieren Sie die folgenden Anfragen auf dem bekannten Unischema in SQL:
+		\begin{enumerate}[a)]
+			% \item Bestimmen Sie das durchschnittliche Semester der Studenten der Universität.
+			\item Bestimmen Sie das durchschnittliche Semester der Studenten, die mindestens eine Vorlesung bei Sokrates hören.
+			% \item Bestimmen Sie, wie viele Vorlesungen im Schnitt pro Student gehört werden. 
+			% 	  Beachten Sie, dass Studenten, die keine Vorlesung hören, in das Ergebnis einfließen müssen.
+		\end{enumerate}
+		\begin{minted}{sql}
+WITH vorlesungen_von_sokrates as (
+	SELECT * 
+	FROM Vorlesungen v, Professoren p
+	WHERE v.gelesenVon = p.PersNr
+	  AND p.Name = 'Sokrates'
+),
+		\end{minted}
+		\vfill\columnbreak
+
+		\begin{minted}{sql}
+studenten_von_sokrates as (
+	SELECT * 
+	FROM Studenten s
+	WHERE EXISTS (
+		SELECT *
+		FROM hoeren h, 
+		     vorlesungen_von_sokrates v
+		WHERE h.MatrNr = s.MatrNr
+		  AND v.VorlNr = h.VorlNr
+	)
+)
+SELECT avg(Semester) FROM studenten_von_sokrates
+		\end{minted}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hausaufgabe 2 - Alternativlösung}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Formulieren Sie die folgenden Anfragen auf dem bekannten Unischema in SQL:
+		\begin{enumerate}[a)]
+			\setcounter{enumi}{1}
+			% \item Bestimmen Sie das durchschnittliche Semester der Studenten der Universität.
+			\item Bestimmen Sie das durchschnittliche Semester der Studenten, die mindestens eine Vorlesung bei Sokrates hören.
+			% \item Bestimmen Sie, wie viele Vorlesungen im Schnitt pro Student gehört werden. 
+			% 	  Beachten Sie, dass Studenten, die keine Vorlesung hören, in das Ergebnis einfließen müssen.
+		\end{enumerate}
+		\begin{minted}{sql}
+WITH vorlesungen_von_sokrates as (
+	SELECT * 
+	FROM Vorlesungen v, Professoren p
+	WHERE v.gelesenVon = p.PersNr
+	  AND p.Name = 'Sokrates'
+),
+		\end{minted}
+		\vfill\columnbreak
+
+		\begin{minted}{sql}
+studenten_von_sokrates as (
+	SELECT DISTINCT *
+	FROM Studenten s, hoeren h, 
+		 vorlesungen_von_sokrates v
+	WHERE h.MatrNr = s.MatrNr 
+	  AND v.VorlNr = h.VorlNr
+)
+
+
+
+
+SELECT avg(Semester) FROM studenten_von_sokrates
+		\end{minted}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hausaufgabe 2 - Alternativlösung}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Formulieren Sie die folgenden Anfragen auf dem bekannten Unischema in SQL:
+		\begin{enumerate}[a)]
+			\setcounter{enumi}{2}
+			% \item Bestimmen Sie das durchschnittliche Semester der Studenten der Universität.
+			% \item Bestimmen Sie das durchschnittliche Semester der Studenten, die mindestens eine Vorlesung bei Sokrates hören.
+			\item Bestimmen Sie, wie viele Vorlesungen im Schnitt pro Student gehört werden. 
+				  Beachten Sie, dass Studenten, die keine Vorlesung hören, in das Ergebnis einfließen müssen.
+		\end{enumerate}
+		\vfill\columnbreak
+
+		\begin{center}
+			\includegraphics[height=.6\paperheight]{../img/uni.pdf}
+		\end{center}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hausaufgabe 2}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Formulieren Sie die folgenden Anfragen auf dem bekannten Unischema in SQL:
+		\begin{enumerate}[a)]
+			\setcounter{enumi}{2}
+			% \item Bestimmen Sie das durchschnittliche Semester der Studenten der Universität.
+			% \item Bestimmen Sie das durchschnittliche Semester der Studenten, die mindestens eine Vorlesung bei Sokrates hören.
+			\item Bestimmen Sie, wie viele Vorlesungen im Schnitt pro Student gehört werden. 
+				  Beachten Sie, dass Studenten, die keine Vorlesung hören, in das Ergebnis einfließen müssen.
+		\end{enumerate}
+		\begin{minted}{sql}
+SELECT hcount / (scount * 1.000)
+FROM (SELECT count(*) AS hcount FROM hoeren) h,
+     (SELECT count(*) AS scount FROM Studenten) s
+
+SELECT hcount / (cast scount as decimal(10, 4))
+FROM (SELECT count(*) AS hcount FROM hoeren) h,
+     (SELECT count(*) AS scount FROM Studenten) s
+		\end{minted}
+		\vfill\columnbreak
+
+		\begin{center}
+			\includegraphics[height=.6\paperheight]{../img/uni.pdf}
+		\end{center}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hausaufgabe 3}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Formulieren Sie eine SQL-Anfrage, um den Bekanntheitsgrad von Studenten zu ermitteln. \\
+		Studenten kennen sich aus gemeinsam besuchten Vorlesungen.
+		Ergebnis absteigend nach Bekanntheitsgrad sortieren
+		\vfill\columnbreak
+
+		\begin{center}
+			\includegraphics[height=.6\paperheight]{../img/uni.pdf}
+		\end{center}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hausaufgabe 3}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Formulieren Sie eine SQL-Anfrage, um den Bekanntheitsgrad von Studenten zu ermitteln. \\
+		Studenten kennen sich aus gemeinsam besuchten Vorlesungen.
+		Ergebnis absteigend nach Bekanntheitsgrad sortieren
+
+		\begin{minted}{sql}
+WITH Bekannte AS (
+	SELECT DISTINCT h1.MatrNr as Student,
+	                h2.MatrNr AS Bekannter
+	FROM hoeren h1, hoeren h2
+	WHERE h1.VorlNr = h2.VorlNr
+	  AND h2.MatrNr <> h1.MatrNr
+)
+		\end{minted}
+		\vfill\columnbreak
+		\begin{minted}{sql}
+SELECT s.MatrNr, s.Name count(*) AS AnzBekannter
+FROM Studenten s, (
+	SELECT DISTINCT h1.MatrNr AS Student, 
+	                 h2.MatrNr as Bekannter
+	FROM hoeren h1, hoeren h2
+	WHERE h1.VorlNr = h2.VorlNr
+	  AND h2.MatrNr <> h1.MatrNr
+	) b
+WHERE s.MatrNr = b.Student
+GROUP BY s.MatrNr, s.Name
+ORDER BY AnzBekannter DESC;
+		\end{minted}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hausaufgabe 4}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Gegeben sei die folgende (erweiterte) Relation ZehnkampfD mit 
+		Athletennamen und den von ihnen erreichten Punkten in den jeweiligen Zehnkampfdisziplinen:
+
+		\[ ZehnkampfD: \{[ \underline{Name, Disziplin}, Punkte ]\} \]
+
+		Finden Sie alle ZehnkämpferInnen, die in \textit{allen} Disziplinen besser sind,
+		als der Athlet \textit{Bolt} in
+		\begin{itemize}
+			\item relationaler Algebra
+			\item relationalem Tupelkalkül
+			\item relationalem Domänenkalkül
+			\item SQL
+		\end{itemize}
+		\vfill\columnbreak
+
+		\begin{table}[]
+			\begin{tabular}{c|c|c}
+				Name         & Disziplin    & Punkte      \\ \hline
+				Eaton        & 100 m        & 450         \\
+				Eaton        & Speerwurf    & 420         \\
+				\( \hdots \) & \( \hdots \) & \( \hdots\) \\
+				Eaton        & Weitsprung   & 420         \\
+				Suarez       & 100 m        & 850         \\
+				Suarez       & Speerwurf    & 620         \\
+				\( \hdots \) & \( \hdots \) & \( \hdots\) \\
+			\end{tabular}
+		\end{table}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hausaufgabe 4}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Gegeben sei die folgende (erweiterte) Relation ZehnkampfD mit 
+		Athletennamen und den von ihnen erreichten Punkten in den jeweiligen Zehnkampfdisziplinen:
+
+		\[ ZehnkampfD: \{[ \underline{Name, Disziplin}, Punkte ]\} \]
+
+		Finden Sie alle ZehnkämpferInnen, die in \textit{allen} Disziplinen besser sind,
+		als der Athlet \textit{Bolt} in
+		\begin{itemize}
+			\item relationaler Algebra
+			% \item relationalem Tupelkalkül
+			% \item relationalem Domänenkalkül
+			% \item SQL
+		\end{itemize}
+		\vfill\columnbreak
+
+		\begin{center}
+			\includegraphics[height=.4\paperheight]{./4-a-1.png}
+		\end{center}
+		\pause 
+		\begin{center}
+			\includegraphics[height=.2\paperheight]{./4-a-2.png}
+		\end{center}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hausaufgabe 4}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Gegeben sei die folgende (erweiterte) Relation ZehnkampfD mit 
+		Athletennamen und den von ihnen erreichten Punkten in den jeweiligen Zehnkampfdisziplinen:
+
+		\[ ZehnkampfD: \{[ \underline{Name, Disziplin}, Punkte ]\} \]
+
+		Finden Sie alle ZehnkämpferInnen, die in \textit{allen} Disziplinen besser sind,
+		als der Athlet \textit{Bolt} in
+		\begin{itemize}
+			% \item relationaler Algebra
+			\item relationalem Tupelkalkül
+			% \item relationalem Domänenkalkül
+			% \item SQL
+		\end{itemize}
+		\vfill\columnbreak
+
+		\begin{align*}
+			\{ [a.Name] | & a \in ZehnkampfD \wedge \\
+						  & \forall a' \in ZehnkampfD(a'.Name = a.Name) \\
+						  & \Rightarrow \\
+						  & \neg \exists b \in ZehnkampfD (b.Disziplin = a'.Disziplin \\
+						  & \wedge b.Name = 'Bolt') \\
+						  & \wedge b.Punkte \geq a'.Punkte) \\
+			) \}
+		\end{align*}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hausaufgabe 4}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Gegeben sei die folgende (erweiterte) Relation ZehnkampfD mit 
+		Athletennamen und den von ihnen erreichten Punkten in den jeweiligen Zehnkampfdisziplinen:
+
+		\[ ZehnkampfD: \{[ \underline{Name, Disziplin}, Punkte ]\} \]
+
+		Finden Sie alle ZehnkämpferInnen, die in \textit{allen} Disziplinen besser sind,
+		als der Athlet \textit{Bolt} in
+		\begin{itemize}
+			% \item relationaler Algebra
+			% \item relationalem Tupelkalkül
+			\item relationalem Domänenkalkül
+			% \item SQL
+		\end{itemize}
+		\vfill\columnbreak
+
+		\begin{align*}
+			\{ [a] | & \exists d,p ([a, d, p] \in ZehnkampfD \wedge \\
+					 & \forall d', p' ([a, d', p'] \in ZehnkampfD \\
+					 & \Rightarrow \\
+					 & \neg \exists bp (['Bolt', d', bp] \in ZehnkampfD \wedge bp \geq p') \\
+					) \\
+			)
+			 \}
+		\end{align*}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hausaufgabe 4}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Gegeben sei die folgende (erweiterte) Relation ZehnkampfD mit 
+		Athletennamen und den von ihnen erreichten Punkten in den jeweiligen Zehnkampfdisziplinen:
+
+		\[ ZehnkampfD: \{[ \underline{Name, Disziplin}, Punkte ]\} \]
+
+		Finden Sie alle ZehnkämpferInnen, die in \textit{allen} Disziplinen besser sind,
+		als der Athlet \textit{Bolt} in
+		\begin{itemize}
+			% \item relationaler Algebra
+			% \item relationalem Tupelkalkül
+			% \item relationalem Domänenkalkül
+			\item SQL
+		\end{itemize}
+		\vfill\columnbreak
+
+		\begin{minted}{sql}
+SELECT DISTINCT a.Name from ZehnkampfD as a
+WHERE NOT EXISTS (
+	SELECT *
+	FROM ZehnkampfD as a2
+	WHERE a2.Name = a.Name
+	  AND EXISTS (
+		  SELECT *
+		  FROM ZehnkampfD as b
+		  WHERE b.Disziplin = a2.Disziplin
+			AND b.Name = 'Bolt'
+			AND b.Punkte >= a2.Punkte
+	  )
+)
+		\end{minted}
+	\end{multicols}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document} % !!! NICHT ENTFERNEN !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
