@@ -660,7 +660,8 @@ ORDER BY AnzBekannter DESC;
 			\item SQL
 		\end{itemize}
 		\vfill\columnbreak
-
+		Übersetzt aus der Anfrage im Tupelkalkül mit aufgelöstem \\
+		\( \forall \)-Quantor und \( \Rightarrow \)
 		\begin{minted}{sql}
 SELECT DISTINCT a.Name from ZehnkampfD as a
 WHERE NOT EXISTS (
@@ -671,9 +672,53 @@ WHERE NOT EXISTS (
 		  SELECT *
 		  FROM ZehnkampfD as b
 		  WHERE b.Disziplin = a2.Disziplin
-			AND b.Name = 'Bolt'
-			AND b.Punkte >= a2.Punkte
+		    AND b.Name = 'Bolt'
+		    AND b.Punkte >= a2.Punkte
 	  )
+)
+		\end{minted}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Hausaufgabe 4}
+	\vspace{0.5cm}
+
+	\begin{multicols}{2}
+		Gegeben sei die folgende (erweiterte) Relation ZehnkampfD mit 
+		Athletennamen und den von ihnen erreichten Punkten in den jeweiligen Zehnkampfdisziplinen:
+
+		\[ ZehnkampfD: \{[ \underline{Name, Disziplin}, Punkte ]\} \]
+
+		Finden Sie alle ZehnkämpferInnen, die in \textit{allen} Disziplinen besser sind,
+		als der Athlet \textit{Bolt} in
+		% \begin{itemize}
+		% 	% \item relationaler Algebra
+		% 	% \item relationalem Tupelkalkül
+		% 	% \item relationalem Domänenkalkül
+		% 	\item SQL
+		% \end{itemize}
+		\begin{minted}{sql}
+WITH disziplinen(anzahl) as (
+	SELECT count(DISTINCT disziplin) AS anzahl
+	FROM ZehnkampfD
+),
+		\end{minted}
+		\vfill\columnbreak
+		Alternative Formulierung mit Zählen der Tupel
+		\begin{minted}{sql}
+besserAlsBolt(name, disziplin) AS (
+	SELECT a.Name, a.Disziplin
+	FROM ZehnkampfD a, ZehnkampfD b
+	WHERE b.name = 'Bolt'
+	  AND a.Disziplin = b.Disziplin
+	  AND a.Punkt > b.Punkte
+)
+SELECT Name 
+FROM besserAlsBolt
+GROUP BY name
+HAVING count(*) = (
+	SELECT anzahl FROM disziplinen
 )
 		\end{minted}
 	\end{multicols}
