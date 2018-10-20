@@ -1,0 +1,229 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TUM-Vorlage: Präsentation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Rechteinhaber:
+%     Technische Universität München
+%     https://www.tum.de
+% 
+% Gestaltung:
+%     ediundsepp Gestaltungsgesellschaft, München
+%     http://www.ediundsepp.de
+% 
+% Technische Umsetzung:
+%     eWorks GmbH, Frankfurt am Main
+%     http://www.eworks.de
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Zur Wahl des Seitenverhältnisses bitte einen der beiden folgenden Befehle
+% auskommentieren und den ausführen lassen:
+\input{../template/res/Praeambel16zu9.tex} % Seitenverhältnis 16:9
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../_Einstellungen.tex}                    % !!! DATEI ANPASSEN !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% \renewcommand{\PersonTitel}{Dr. rer. nat.}
+\newcommand{\Datum}{\today}
+
+\renewcommand{\PraesentationFusszeileZusatz}{| Tutorium Grundlagen: Datenbanken WS 18/19}
+
+\title{Tutorübung 7}
+\author{\PersonVorname{} \PersonNachname}
+\institute[]{\UniversitaetName \\ \FakultaetName}
+\date[\Datum]{15. Oktober 2018}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{../template/res/Anfang.tex} % !!! NICHT ENTFERNEN !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\setlength{\baselineskip}{\PraesentationAbstandAbsatz}
+\setlength{\parskip}{\baselineskip}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FOLIENSTIL: Standard
+% !!!ÄNDERUNG HIER:!!!
+\PraesentationMasterStandard
+
+\PraesentationTitelseite % Fügt die Startseite ein
+
+\begin{frame}
+\frametitle{Hausaufgabe 1}
+\vspace{0.25cm}
+
+\begin{multicols}{2}
+	Gegeben sei die Tabelle ubahn, die strukturell dem folgenden Beispiel gleicht:
+	\begin{enumerate}[a)]
+		\item Geben Sie eine Anfrage an, welche für eine gegebene Station,
+				beispielsweise Garching Forschungszentrum, ermittelt,
+				welche \textbf{anderen} Stationen von hier erreicht werden können.
+				Geben Sie diese \textbf{duplikatfrei} aus.
+		% \item Ermitteln Sie die Gesamtdauer, die eine Fahrt von
+		%       einer gegeben zu jeder anderen Station benötigt.
+		% \item Geben Sie eine SQL Anfrage an, welche alle von Freimann
+		%       in beide Richtungen rekursiv erreichbaren Stationen ermittelt.
+		%       Bilden Sie hierzu zunächst die Hülle in beide Richtungen.
+
+		%       Was ist das Problem bei der Erstellung der einfachen Hülle auf der symmetrischen Basisrelation?
+
+	\end{enumerate}
+	\vfill\columnbreak
+
+	\begin{table}[]
+		\begin{tabular}{l|l|l}
+			Von                        & Nach                & Dauer        \\ \hline
+			Garching Forschungszentrum & Garching            & 2            \\
+			Garching                   & Garching Hochbrück  & 2            \\
+			Garching Hochbrück         & Fröttmanning        & 4            \\
+			Fröttmanning               & Kieferngarten       & 2            \\
+			Kieferngarten              & Freimann            & 2            \\
+			\( \hdots \)               & \( \hdots \)        & \( \hdots \) \\
+			Odeonsplatz                & Marienplatz         & 1            \\
+			\( \hdots \)               & \( \hdots \)        & \( \hdots \) \\
+			Haderner Stern             & Klinikum Großhadern & 1            \\
+		\end{tabular}
+	\end{table}
+\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Hausaufgabe 1}
+\vspace{0.25cm}
+
+\begin{multicols}{2}
+	Gegeben sei die Tabelle ubahn, die strukturell dem folgenden Beispiel gleicht:
+	\begin{enumerate}[a)]
+		\item Geben Sie eine Anfrage an, welche für eine gegebene Station,
+				beispielsweise Garching Forschungszentrum, ermittelt,
+				welche \textbf{anderen} Stationen von hier erreicht werden können.
+				Geben Sie diese \textbf{duplikatfrei} aus.
+		% \item Ermitteln Sie die Gesamtdauer, die eine Fahrt von
+		%       einer gegeben zu jeder anderen Station benötigt.
+		% \item Geben Sie eine SQL Anfrage an, welche alle von Freimann
+		%       in beide Richtungen rekursiv erreichbaren Stationen ermittelt.
+		%       Bilden Sie hierzu zunächst die Hülle in beide Richtungen.
+
+		%       Was ist das Problem bei der Erstellung der einfachen Hülle auf der symmetrischen Basisrelation?
+
+	\end{enumerate}
+	\vfill\columnbreak
+
+	\begin{minted}{sql}
+WITH RECURSIVE huelle (von, nach) AS (
+	(SELECT von, nach FROM ubahn)
+	UNION ALL
+	(SELECT h.von, u.nach 
+	FROM huelle h, ubahn u
+	WHERE h.nach = u.von)
+)
+SELECT DISTINCT nach
+FROM huelle
+WHERE von = 'Garching Forschungszentrum'
+ORDER BY von;
+	\end{minted}
+\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Hausaufgabe 1}
+\vspace{0.25cm}
+
+\begin{multicols}{2}
+	Gegeben sei die Tabelle ubahn, die strukturell dem folgenden Beispiel gleicht:
+	\begin{enumerate}[a)]
+		\setcounter{enumi}{1}
+		% \item Geben Sie eine Anfrage an, welche für eine gegebene Station,
+		% 		beispielsweise Garching Forschungszentrum, ermittelt,
+		% 		welche \textbf{anderen} Stationen von hier erreicht werden können.
+		% 		Geben Sie diese \textbf{duplikatfrei} aus.
+		\item Ermitteln Sie die Gesamtdauer, die eine Fahrt von
+		      einer gegeben zu jeder anderen Station benötigt.
+		% \item Geben Sie eine SQL Anfrage an, welche alle von Freimann
+		%       in beide Richtungen rekursiv erreichbaren Stationen ermittelt.
+		%       Bilden Sie hierzu zunächst die Hülle in beide Richtungen.
+
+		%       Was ist das Problem bei der Erstellung der einfachen Hülle auf der symmetrischen Basisrelation?
+
+	\end{enumerate}
+	\vfill\columnbreak
+
+	\begin{minted}{sql}
+WITH RECURSIVE huelle(von, nach, dauer) AS (
+	(SELECT von, nach dauer
+	FROM ubahn
+	) UNION ALL (
+		SELECT u.von, h.nach,
+		                  u.dauer + h.dauer
+		FROM ubahn u, huelle h
+		WHERE u.nach = h.von
+	)
+)
+SELECT *
+FROM huelle 
+ORDER BY von;
+	\end{minted}
+\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Hausaufgabe 1}
+\vspace{0.25cm}
+
+\begin{multicols}{2}
+	Gegeben sei die Tabelle ubahn, die strukturell dem folgenden Beispiel gleicht:
+	\begin{enumerate}[a)]
+		\setcounter{enumi}{2}
+		% \item Geben Sie eine Anfrage an, welche für eine gegebene Station,
+		% 		beispielsweise Garching Forschungszentrum, ermittelt,
+		% 		welche \textbf{anderen} Stationen von hier erreicht werden können.
+		% 		Geben Sie diese \textbf{duplikatfrei} aus.
+		% \item Ermitteln Sie die Gesamtdauer, die eine Fahrt von
+		%       einer gegeben zu jeder anderen Station benötigt.
+		\item Geben Sie eine SQL Anfrage an, welche alle von Freimann
+		      in beide Richtungen rekursiv erreichbaren Stationen ermittelt.
+		      Bilden Sie hierzu zunächst die Hülle in beide Richtungen.
+
+		      Was ist das Problem bei der Erstellung der einfachen Hülle auf der symmetrischen Basisrelation?
+	\end{enumerate}
+	\begin{minted}{sql}
+WITH undir_ubahn(von, nach) AS (
+	(SELECT von, nach FROM ubahn)
+	UNION ALL
+	(SELECT nach, von FROM ubahn)
+),
+	\end{minted}
+	\vfill\columnbreak
+
+	\begin{minted}{sql}
+huelle(von, nach) AS (
+	(SELECT von, nach FROM undir_ubahn)
+	UNION
+	(SELECT h.von, u.nach
+	FROM huelle h, ubahn u
+	WHERE h.nach = u.von)
+),
+zusammenhang(von, nach) AS (
+	(SELECT nach, von FROM huelle)
+	UNION
+	(SELECT h.von, z.nach 
+	FROM huelle h, zusammenhang z
+	WHERE h.nach = z.von)
+)
+SELECT nach
+FROM zusammenhang
+WHERE von = 'Freimann'
+ORDER BY nach;
+	\end{minted}
+\end{multicols}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document} % !!! NICHT ENTFERNEN !!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

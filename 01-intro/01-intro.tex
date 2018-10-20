@@ -57,83 +57,150 @@
 
 \begin{frame}
 	\frametitle{Hausaufgabe 1}
-	\vspace{0.5cm}
+	\vspace{0.25cm}
 
-	Erläutern Sie den Unterschied zwischen dem Relationalen Modell und dem Graphstrukturieren Modell.
-	\begin{enumerate}[a)]
-		\item<1-> Nennen Sie ein typisches Einsatzgebiet für das jeweilige Modell.
-		\item<2->[]
-		      Relationales Modell:
-		      \begin{itemize}
-			      \item Ein CMS.
-		      \end{itemize}
-		      Graphstrukturiertes Modell:
-		      \begin{itemize}
-			      \item Datenspeicherung in der Bioinformatik/Medizin.
-			      \item Speicherung von inhärent graphstrukturierten Daten wie etwa U-Bahn Netze ;-)
-		      \end{itemize}
-	\end{enumerate}
+	\begin{multicols}{2}
+		Als moderner Netzbürger besitzen Sie einen Twitter-Account mit 150 Followern. Nach der Vorlesung schreiben Sie
+		folgenden Tweet:
+
+		\begin{enumerate}[a)]
+			\only<1-2> {
+			\item Welche Daten werden durch das Absenden des Tweets generiert? \\
+			      Wo werden diese im System von Twitter gespeichert? (Auch an Metadaten denken) \\
+			      Welche Daten werden generiert, wenn der Tweet einen Like erhält?
+			      }
+			      \setcounter{enumi}{1}
+			\item<3-> Durch die DSGVO müssen u.a. personenbezogene Daten auf Anfrage gelöscht werden.
+			      Welche Daten müssen bei einer solchen Anfrage gelöscht werden?
+			      Welche Probleme können dabei auftreten?
+		\end{enumerate}
+		\vfill\columnbreak
+		\begin{center}
+			\includegraphics[height=.2\paperheight]{./tweet.png}
+		\end{center}
+		\vspace{-1cm}
+
+		\begin{enumerate}[a)]
+			\only<2> {
+			\item \begin{itemize}
+				      \color{TUMBlau}
+				      \item Zuordnung zum Account @netzbürger42, Datum, Benachrichtigung für @DLR\_de,
+				            Metadaten des Hashtags, Benutzerdaten.
+				      \item Tweets und Nutzerdaten werden wahrscheinlich getrennt gespeichert.
+				      \item Beim Like eine Verbindung zwischen beiden Accounts gespeichert.
+			      \end{itemize}
+			      }
+			      \setcounter{enumi}{1}
+			\item <4-> \begin{itemize}
+				      \color{TUMBlau}
+				      \item Tweets, Benutzerkonto (Accountname, Passwort-Hashes, Geburtstag ...).
+				      \item Problem bei der Interaktion mit anderen,
+				            da die Konsistenz der Daten garantiert werden muss. \\
+				            Löschen aus Backups kann schwierig sein.
+			      \end{itemize}
+		\end{enumerate}
+	\end{multicols}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Hausaufgabe 1}
-	\vspace{0.5cm}
-
-	\begin{enumerate}[b)]
-		% \setcounter{enumii}{2}
-		\item<1-> Im Datenbankbereich unterscheidet man zwischen Modellen,
-		      welche ein festes Schema voraussetzen und anderen,
-		      die kein Schema benötigen. Ein Schema ist hierbei eine Vorgabe,
-		      wie Daten repräsentiert werden, beispielsweise, dass jede Vorlesung genau
-		      eine eindeutige Nummer hat, einen Namen von weniger als 200 Zeichen und eine
-		      Semesterwochenstundenzahl.
-		      \begin{enumerate}[1)]
-			      \item<1-> Was ist der Vorteil/Nachteil einer solchen Vorgabe für den Anwender?
-			      \item<2->[] Schema sorgt für sauber und einheitlich abgelegte Daten
-			            und bietet Garantien über die Vollständigkeit und das Format der vorhanden Daten.
-			            Es geht Flexibilität verloren, da neue Daten, die abgelegt werden müssen,
-			            oft eine Schemaänderung notwendig machen.
-			      \item<1-> Was ist der Vorteil/Nachteil einer solchen Vorgabe für den Entwickler des
-			            Datenbanksystems?
-			      \item<2->[] Ein Schema erlaubt i.A. mehr Optimierungsmöglichkeiten da mehr Informationen
-			            und dadurch mehr “Constraints” über die Daten bekannt sind.
-			            Das Datenbanksystem kann so Anfragen schneller bearbeiten.
-		      \end{enumerate}
-	\end{enumerate}
-\end{frame}
 
 \begin{frame}
 	\frametitle{Hausaufgabe 2}
-	\vspace{0.5cm}
+	\vspace{0.25cm}
 
 	\begin{multicols}{2}
-		\begin{center}
-			\includegraphics[height=.2\paperheight]{./img1.png}
-		\end{center}
-		Angenommen, lediglich die partielle Funktion
-		\[ A \times C \rightarrow B \]
-		gilt.
-		Beschriften Sie die Abbildung mit Funktionalitätsangaben.
-
-		Beantworten Sie nun die Frage, wie Funktionalitätsangaben aus partiellen
-		Funktionen und umgekehrt ermittelt werden können.
-		Merken Sie sich die Antwort für die Klausur ;-)
-
-		\pause
+		\only<1-4> {
+			Ignorieren Sie die Funktionalitätsangaben und beantworten Sie:
+			\begin{enumerate}[a)]
+				\item<1-> Wie viele partielle Funktionen der Form \( A \times B \rightarrow C \)
+				      können in einer ternären Beziehung auftreten? \\
+				      (Ignorieren Sie die Reihenfolge auf der linken Seite)
+				\item<1-> Nennen Sie alle möglichen partiellen Beziehungen in der hier
+				      gezeigten Beziehung "nimmt teil".
+				\item<3-> Nennen Sie für jede Funktion in Prosa,
+				      welche Einschränkung diese darstellt, falls sie gilt.
+			\end{enumerate}
+		}
+		% \only<
+		Unter Berücksichtigung der Funktionalitätsangaben:
+		\begin{enumerate}[a)]
+			\item Welche partiellen Funktionen gelten hier?
+		\end{enumerate}
 		\vfill\columnbreak
 
-		Eine einfache Daumenregel ist, dass an die Entität, die auf der rechten Seite des
-		Pfeiles einer geltenden partiellen Funktion steht, eine 1 annotiert wird.
-		Es bietet sich daher an, für die sichere Bestimmung der
-		Kardinaliätsangaben grundsätzlich die möglichen partiellen Funktionen aufzustellen und
-		zu überlegen, welche Einschränkungen gewünscht sind.
+		\begin{center}
+			\includegraphics[height=.2\paperheight]{./er.png}
+		\end{center}
+		\vspace{-1cm}
+		\begin{enumerate}[a)]
+			\color{TUMBlau}
+			\item<2-> Es gibt 3 mögliche partielle Funktionen.
+			\item<2-> \begin{enumerate}[1.]
+				      \color{TUMBlau}
+				      \item \( Tutor \times Uebung \rightarrow Student \)
+				      \item \( Student \times Tutor \rightarrow Uebung \)
+				      \item \( Student \times Uebung \rightarrow Tutor \)
+			      \end{enumerate}
+			\item<4->
+			      Ein Tutor darf pro Übung nur einen Studenten haben. \\
+			      Ein Student darf bei einem Tutor nur eine Übung besuchen. \\
+			      Ein Student darf in einer Übung nur einen Tutor haben. \\
+		\end{enumerate}
 	\end{multicols}
-
 \end{frame}
+
+% \begin{frame}
+% 	\frametitle{Hausaufgabe 2}
+% 	\vspace{0.25cm}
+
+% 	\begin{multicols}{2}
+% 		% Ignorieren Sie die Funktionalitätsangaben und beantworten Sie:
+% 		% \begin{enumerate}[a)]
+% 		% 	\item<1-> Wie viele partielle Funktionen der Form \( A \times B \rightarrow C \)
+% 		% 	      können in einer ternären Beziehung auftreten? \\
+% 		% 	      (Ignorieren Sie die Reihenfolge auf der linken Seite)
+% 		% 	\item<1-> Nennen Sie alle möglichen partiellen Beziehungen in der hier
+% 		% 	      gezeigten Beziehung "nimmt teil".
+% 		% 	\item<3-> Nennen Sie für jede Funktion in Prosa,
+% 		% 	      welche Einschränkung diese darstellt, falls sie gilt.
+% 		% \end{enumerate}
+% 		Unter Berücksichtigung der Funktionalitätsangaben:
+% 		\begin{enumerate}[a)]
+% 			\setcounter{enumi}{3}
+% 			\item Welche partiellen Funktionen gelten hier?
+% 		\end{enumerate}
+
+% 		\begin{enumerate}[a)]
+% 			\setcounter{enumi}{3}
+% 			\color{TUMBlau}
+% 			\item Funktionen 2. und 3. passen, da diese eine 1 auf der rechten Seite haben und
+% 			      im Übungsbetrieb der Fall sind.
+% 		\end{enumerate}
+% 		\vfill\columnbreak
+
+% 		\begin{center}
+% 			\includegraphics[height=.2\paperheight]{./er.png}
+% 		\end{center}
+% 		\vspace{-1cm}
+% 		% \begin{enumerate}[a)]
+% 		% 	\color{TUMBlau}
+% 		% 	\item<2-> Es gibt 3 mögliche partielle Funktionen.
+% 		% 	\item<2-> \begin{enumerate}[1.]
+% 		% 		      \color{TUMBlau}
+% 		% 		      \item \( Tutor \times Uebung \rightarrow Student \)
+% 		% 		      \item \( Student \times Tutor \rightarrow Uebung \)
+% 		% 		      \item \( Student \times Uebung \rightarrow Tutor \)
+% 		% 	      \end{enumerate}
+% 		% 	\item<4->
+% 		% 	      Ein Tutor darf pro Übung nur einen Studenten haben. \\
+% 		% 	      Ein Student darf bei einem Tutor nur eine Übung besuchen. \\
+% 		% 	      Ein Student darf in einer Übung nur einen Tutor haben. \\
+% 		% \end{enumerate}
+% 	\end{multicols}
+% \end{frame}
 
 \begin{frame}
 	\frametitle{Gruppenaufgabe 1}
-	\vspace{0.5cm}
+	\vspace{0.25cm}
 
 	Sie designen eine Webanwendung zur Univerwaltung.
 	Früh entschließen Sie sich zum Einsatz eines Datenbanksystems als
@@ -154,7 +221,7 @@
 
 \begin{frame}
 	\frametitle{Gruppenaufgabe 2}
-	\vspace{0.5cm}
+	\vspace{0.25cm}
 
 	Finden Sie ein Beispiel für ein Problem (bzw. eine Inkonsistenz),
 	die auftreten kann, wenn unkontrolliert parallel auf Daten zugegriffen wird.
@@ -168,6 +235,7 @@
 
 	\pause
 	\begin{table}[]
+		\color{TUMBlau}
 		\begin{tabular}{c|c|c}
 			Schritt & A                & B                 \\ \hline
 			1       & \( read(a) \)    &                   \\
@@ -180,6 +248,7 @@
 			8       & \( write(a) \)   &                   \\
 		\end{tabular}
 	\end{table}
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document} % !!! NICHT ENTFERNEN !!!
